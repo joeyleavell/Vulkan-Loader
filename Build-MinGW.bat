@@ -5,7 +5,7 @@ cd Build\MinGW
 python ..\..\scripts\update_deps.py
 cd ..\..
 cmake -G "MinGW Makefiles" -C Build/MinGW/helper.cmake -D CMAKE_INSTALL_PREFIX=".\Install\MinGW" -H. -BBuild/MinGW
-cmake --build Build/MinGW --config Release
+cmake --build Build/MinGW --config Release -- -j12
 cmake --install Build/MinGW --config Release
 
 :: Copy the artifacts over
