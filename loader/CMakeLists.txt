@@ -138,14 +138,25 @@ if(WIN32)
         if (JWASM_FOUND)
             set(CMAKE_ASM_MASM_COMPILER ${JWASM_FOUND})
             execute_process(COMMAND ${CMAKE_C_COMPILER} --version OUTPUT_VARIABLE COMPILER_VERSION_OUTPUT)
-            if (COMPILER_VERSION_OUTPUT)
-                if (COMPILER_VERSION_OUTPUT MATCHES "x86_64")
-                    set(JWASM_FLAGS -win64)
-                else()
-                    set(JWASM_FLAGS -coff)
-                endif()
-            endif()
-        endif()
+			
+			# J.Leavell -- The original check below does not work for me, so I'm changing it to simply use WIN32/WIN64 cmake vars
+			
+            #if (COMPILER_VERSION_OUTPUT)
+                #if (COMPILER_VERSION_OUTPUT MATCHES "x86_64")
+                    #set(JWASM_FLAGS -win64)
+                #else()
+                    #set(JWASM_FLAGS -coff)
+                #endif()
+            #endif()
+			
+			
+			if(WIN64)
+				set(JWASM_FLAGS -win64)
+			else()
+				set(JWASM_FLAGS -coff)
+			endif()
+			
+		endif()
     endif()
     option(USE_MASM "Use MASM" ON)
     if (USE_MASM)
